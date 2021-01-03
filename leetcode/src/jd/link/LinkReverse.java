@@ -1,5 +1,8 @@
 package jd.link;
 
+import java.sql.ClientInfoStatus;
+import java.util.List;
+
 public class LinkReverse {
 
     public static void main(String[] args) {
@@ -9,8 +12,63 @@ public class LinkReverse {
 //        ListNode reHead = l.reverseNode(head);
 //        l.printNode(reHead);
         // 翻转链表m,n
-        ListNode reHeadMN = l.reverseNodeMN(head, 1, 1);
-        l.printNode(reHeadMN);
+//        ListNode reHeadMN = l.reverseNodeMN(head, 1, 1);
+//        l.printNode(reHeadMN);
+        ListNode h = l.removeNthFromEnd(head, 2);
+        l.printNode(h);
+    }
+
+    // 删除倒数第n个节点，n<=length
+    // 思路：快慢指针
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode fast = head;
+        ListNode slow = dummy;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+
+    // 求链表的中间节点
+    // 思路：快慢指针
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head,fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    // 删除链表指定节点（非尾节点）
+    // 思路：将该节点赋值为后继节点，然后删除后继节点
+    void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    // 删除链表中指定值对应的节点
+    // 思路：遍历链表，找到该节点删除
+    ListNode deleteNodeVal(ListNode head, int val) {
+        if (val == head.val) {
+            ListNode n = head.next;
+            head.next = null;
+            return n;
+        }
+        ListNode l = head;
+        while (l.next.next != null) {
+            if (l.next.val == val) {
+                l.next = l.next.next;
+            }
+            l = l.next;
+        }
+        return head;
     }
 
     // 构建N个节点的链表
@@ -125,6 +183,10 @@ class ListNode {
     // 构造函数
     ListNode(int v) {
         this.val = v;
-        next = null;
+    }
+
+    ListNode(int v, ListNode node) {
+        this.val = v;
+        this.next = node;
     }
 }
