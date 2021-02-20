@@ -79,23 +79,53 @@ public class MyArrayList<E> implements List<E> {
         return false;
     }
 
+    private class Ite implements Iterator<E>{
+
+        int nextIndex = 0;
+        int lastIndex = -1;
+        @Override
+        public boolean hasNext() {
+            return nextIndex <= currentIndex;
+        }
+
+        @Override
+        public E next() {
+            if(nextIndex <= currentIndex){
+                lastIndex = nextIndex;
+                return (E)container[nextIndex++];
+            }else{
+                throw new NoSuchElementException();
+            }
+        }
+
+        @Override
+        public void remove() {
+            if(lastIndex == -1){
+                throw new NoSuchElementException();
+            }
+            MyArrayList.this.remove(lastIndex);
+            nextIndex = lastIndex;
+            lastIndex = -1;
+        }
+    }
+
     public Iterator<E> iterator() {
-        Iterator<E> iterator = new Iterator<E>() {
-            int currIndex = 0;
-
-            public boolean hasNext() {
-                return this.currIndex <= currentIndex;
-            }
-
-            public E next() {
-                return (E) container[this.currIndex++];
-            }
-
-            public void remove() {
-                MyArrayList.this.remove(this.currIndex);
-            }
-        };
-        return iterator;
+//        Iterator<E> iterator = new Iterator<E>() {
+//            int currIndex = 0;
+//
+//            public boolean hasNext() {
+//                return this.currIndex <= currentIndex;
+//            }
+//
+//            public E next() {
+//                return (E) container[this.currIndex++];
+//            }
+//
+//            public void remove() {
+//                MyArrayList.this.remove(this.currIndex);
+//            }
+//        };
+        return new Ite();
     }
 
     public Object[] toArray() {

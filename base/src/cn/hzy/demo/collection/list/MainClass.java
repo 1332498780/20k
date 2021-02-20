@@ -8,7 +8,7 @@ public class MainClass {
 
     public static void main(String[] args){
         MainClass mainClass = new MainClass();
-        mainClass.concurrentTest();
+        mainClass.iteratorTest();
     }
 
 
@@ -103,5 +103,22 @@ public class MainClass {
 //            System.out.println(iterator.next());
 //        }
         System.out.println(list.size());
+    }
+
+    public void iteratorTest(){
+        List<Integer> list = new MyArrayList<>();
+        list.add(123);
+        list.add(234);
+        list.add(345);
+        list.add(456);
+        Iterator<Integer> iterator = list.iterator();
+        iterator.next();
+        iterator.remove();
+//        iterator.remove();
+
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+
     }
 }
