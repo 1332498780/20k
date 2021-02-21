@@ -34,7 +34,7 @@ public class MyLinkedListTest {
 
     @Test
     public void regularTest(){
-        List<Integer> list = new MyLinkedList<>();
+        List<Integer> list = new LinkedList<>();
         list.add(123);
         list.add(234);
         list.add(345);
@@ -48,5 +48,6 @@ public class MyLinkedListTest {
             System.out.println(list.get(i));
         }
     }
+
 
 }

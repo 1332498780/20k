@@ -4,7 +4,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class Base {
 
-    protected int i = 2;
+    protected int i = 20;
 
     public Base(){
         System.out.println(this.i);
@@ -22,7 +22,7 @@ class Child extends Base{
         this.display();
     }
     public void display(){
-        System.out.println(++i);
+        System.out.println(i);
     }
 
     public static void main(String[] args){
