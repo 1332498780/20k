@@ -5,10 +5,8 @@ public class JHsdbDemo {
     private static class InnerClass{
         static Holder staticHolder = new Holder();
         Holder holderInstance = new Holder();
+        InnerClass(){}
 
-        InnerClass(){
-
-        }
         void foo(){
             Holder ic = new Holder();
             System.out.println(ic);
