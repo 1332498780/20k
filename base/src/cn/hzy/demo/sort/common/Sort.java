@@ -4,15 +4,18 @@ public abstract class Sort<T extends Comparable>{
 
     private Marker marker;
 
-    private T[] array;
+    public T[] array;
 
-    public Sort(String sortName){
+    public Sort(String sortName,T[] array){
         marker = new Marker(sortName);
+        this.array = array;
     }
 
-    public abstract void asc(T[] array);
+    public abstract void asc();
 
-    public abstract void desc(T[] array);
+    public abstract void desc();
+
+    public abstract void upgrade();
 
     public int compareTo(int a,int b){
         marker.compareCount++;
@@ -26,24 +29,47 @@ public abstract class Sort<T extends Comparable>{
         array[b] = temp;
     }
 
-    public void sortAsc(T[] array){
-        this.array = array;
+    public void printPre(int count){
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<count;i++){
+            sb.append(array[i]).append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        System.out.println(sb.toString());
+    }
+
+    public void printPost(int count){
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<count;i++){
+            sb.append(array[array.length-1-i]).append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        System.out.println(sb.toString());
+    }
+
+    public void sortAsc(){
         long start = System.currentTimeMillis();
-        asc(array);
+        asc();
         long end = System.currentTimeMillis();
         marker.calc(start,end);
         marker.print();
     }
 
-    public void sortDesc(T[] array){
-        this.array = array;
+    public void sortDesc(){
         long start = System.currentTimeMillis();
-        desc(array);
+        desc();
         long end = System.currentTimeMillis();
         marker.calc(start,end);
         marker.print();
     }
 
+    public void sortUpgrade(){
+        long start = System.currentTimeMillis();
+        upgrade();
+        long end = System.currentTimeMillis();
+        marker.calc(start,end);
+        marker.print();
+    }
 
     private static class Marker{
 

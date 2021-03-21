@@ -9,44 +9,20 @@ import java.util.Random;
 
 public class Select extends Sort<Integer> {
 
-    public Select() {
-        super("选择排序");
+    public Select(Integer[] array) {
+        super("选择排序",array);
     }
 
-//    public void upgradeDesc(int[] array){
-//        for(int i=0;i<array.length/2;i++){
-//            int leftIndex = i;
-//            int rightIndex = array.length-1-i;
-//            int maxValueIndex = leftIndex;
-//            int minValueIndex = rightIndex;
-//            if(array[maxValueIndex] < array[minValueIndex]){
-//                swap(array,maxValueIndex,minValueIndex);
-//            }
-//            for(int j=leftIndex+1;j<rightIndex;j++){
-//                if(array[j]>array[maxValueIndex]){
-//                    maxValueIndex = j;
-//                }else if(array[j]<array[minValueIndex]){
-//                    minValueIndex = j;
-//                }
-//            }
-//            if(leftIndex!=maxValueIndex){
-//                swap(array,leftIndex,maxValueIndex);
-//            }
-//            if(rightIndex!=minValueIndex){
-//                swap(array,rightIndex,minValueIndex);
-//            }
-//        }
-//    }
-
-
     public static void main(String[] args){
-        Select select = new Select();
         Integer[] array = GenerateData.asc(GenerateData.w1);
-        select.sortAsc(array);
+        Select select = new Select(array);
+        select.printPre(20);
+        select.sortUpgrade();
+        select.printPre(20);
     }
 
     @Override
-    public void asc(Integer[] array) {
+    public void asc() {
         for(int i=0;i<array.length-1;i++){
             int index = i;
             for(int j=index+1;j<array.length;j++){
@@ -61,7 +37,7 @@ public class Select extends Sort<Integer> {
     }
 
     @Override
-    public void desc(Integer[] array) {
+    public void desc() {
         for(int i=0;i<array.length-1;i++){
             int index = i;
             for(int j=index+1;j<array.length;j++){
@@ -71,6 +47,32 @@ public class Select extends Sort<Integer> {
             }
             if(index!=i){
                 swap(index,i);
+            }
+        }
+    }
+
+    @Override
+    public void upgrade() {
+        for(int i=0;i<array.length/2;i++){
+            int leftIndex = i;
+            int rightIndex = array.length-1-i;
+            int maxValueIndex = leftIndex;
+            int minValueIndex = rightIndex;
+            if(compareTo(maxValueIndex,minValueIndex)==-1){
+                swap(maxValueIndex,minValueIndex);
+            }
+            for(int j=leftIndex+1;j<rightIndex;j++){
+                if(compareTo(j,maxValueIndex) == 1){
+                    maxValueIndex = j;
+                }else if(compareTo(j,minValueIndex) == -1){
+                    minValueIndex = j;
+                }
+            }
+            if(leftIndex!=maxValueIndex){
+                swap(leftIndex,maxValueIndex);
+            }
+            if(rightIndex!=minValueIndex){
+                swap(rightIndex,minValueIndex);
             }
         }
     }
