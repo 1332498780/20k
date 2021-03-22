@@ -17,9 +17,14 @@ public abstract class Sort<T extends Comparable>{
 
     public abstract void upgrade();
 
+
     public int compareTo(int a,int b){
         marker.compareCount++;
         return array[a].compareTo(array[b]);
+    }
+    public int compareValTo(T a,T b){
+        marker.compareCount++;
+        return a.compareTo(b);
     }
 
     public void swap(int a,int b){
