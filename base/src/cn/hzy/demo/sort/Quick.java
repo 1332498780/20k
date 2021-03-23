@@ -15,13 +15,14 @@ public class Quick extends Sort<Integer> {
         recursionAsc(0,array.length-1);
     }
 
-    public static void main(String[] args){
-//        Integer[] array = GenerateData.desc(10);
-        Integer[] array = new Integer[]{10,9,8,7,6,5,4,3,2,1};
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(15000);
+        Integer[] array = GenerateData.desc(GenerateData.w10);
+//        Integer[] array = new Integer[]{10,9,8,7,6,5,4,3,2,1};
         Quick quick = new Quick(array);
-        quick.printPre(10);
+        quick.printPre(20);
         quick.sortAsc();
-        quick.printPre(10);
+        quick.printPre(20);
 //        System.out.println(quick.pivot(0,9));
     }
 
@@ -56,7 +57,7 @@ public class Quick extends Sort<Integer> {
         int midVal = array[mid];
         boolean fromRight = true;
         int i = start,j = end;
-        while(i<=j){
+        while(i<j){
             if(fromRight){
                 if(compareValTo(array[j],midVal)==-1){
                     array[mid] = array[j];
@@ -72,6 +73,14 @@ public class Quick extends Sort<Integer> {
                 }
                 i++;
             }
+        }
+        //i==j时，上边没有做比较操作来确定mid值和i==j值的位置关系，所以下面补充了判断
+        if(i<mid && compareTo(i,mid) ==  1){
+            array[mid] = array[i];
+            mid = i;
+        }else if(j>mid && compareTo(j,mid) == -1){
+            array[mid] = array[j];
+            mid = j;
         }
         array[mid] = midVal;
         if((mid-1) - start > 0){
