@@ -1,13 +1,19 @@
-package cn.hzy.demo.grammer.vm;
+package cn.hzy.demo.collection.map;
 
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class MyTree<E> {
 
     private Node root;
 
+    /**
+     * 插入
+     * @param e
+     */
     public void add(E e){
-        Node node = new Node(null,null,e);
+        Node node = new Node();
+        node.data = e;
         if(root== null){
             root = node;
         }else{
@@ -15,6 +21,11 @@ public class MyTree<E> {
         }
     }
 
+    /**
+     * 递归在以tmp为根节点
+     * @param tmp
+     * @param node
+     */
     public void ite(Node tmp,Node node){
         if(node.compareTo(tmp) <= 0){
             if(tmp.left != null){
@@ -32,6 +43,11 @@ public class MyTree<E> {
     }
 
 
+    /**
+     * 删除指定值
+     * @param e
+     * @return
+     */
     public boolean remove(E e){
         Node currentNode = root;
         Node parentNode = null;
@@ -94,6 +110,9 @@ public class MyTree<E> {
         return true;
     }
 
+    /**
+     * 根据给定的字符串构造二叉树，字符串是前序
+     */
     static int index = -1;
     private static <E> Node<E> generateTree(String str){
         index++;
@@ -127,17 +146,98 @@ public class MyTree<E> {
         printPre(node.right);
     }
 
-    public static <E> void main(String[] args){
-        String str = "731##4#5##98###";
-        Node<E> node = generateTree(str);
-        printPre(node);
-        MyTree myTree = new MyTree();
-        myTree.root = node;
-        myTree.remove(7);
-        printPre(myTree.root);
+    /**
+     * 非递归前序遍历打印
+     * @param node
+     */
+    private static void printNormal(Node node){
+
+        class Snode<T>{
+            Snode pre;
+            Snode next;
+            T data;
+            public Snode(T data){
+                this.data = data;
+            }
+        }
+        class Stack<T>{
+            Snode<T> header;
+            Snode<T> top; //栈顶
+            boolean isEmpty(){
+                return header == null;
+            }
+
+            void push(T data){
+                Snode<T> sNode = new Snode<>(data);
+                if(isEmpty()){
+                    header = sNode;
+                    top = sNode;
+                }else{
+                    top.next = sNode;
+                    sNode.pre = top;
+                    top = top.next;
+                }
+            }
+            T pop(){
+                T data;
+                if(isEmpty()){
+                    return null;
+                }else {
+                    if(top == header){
+                       data = header.data;
+                       header = null;
+                       top = null;
+                    }else{
+                        data = top.data;
+                        Snode delNode = top;
+                        top = delNode.pre;
+                        top.next = null;
+                        //delNode.next.pre = top;
+                        delNode.pre = null;
+                        delNode.next = null;
+                    }
+                    return data;
+                }
+            }
+        }
+        //根左右
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()){
+            Node tmp = stack.pop();
+            System.out.print(tmp.data+",");
+            if(tmp.right!=null){
+                stack.push(tmp.right);
+            }
+            if(tmp.left!=null){
+                stack.push(tmp.left);
+            }
+        }
     }
 
+//    public static <E> void main(String[] args){
+//        MyTree<Integer> myTree = new MyTree();
+//        myTree.insertTree();
+//    }
 
+    /**
+     * 交互输入非0数字构造二叉树
+     */
+    public void insertTree(){
+        Scanner scanner = new Scanner(System.in);
+        int val = 0;
+        while((val = scanner.nextInt())!=0){
+            add((E)Integer.valueOf(val));
+        }
+        printPre(root);
+    }
+
+    /**
+     * 得到待删除节点的前序遍历的前驱节点
+     * @param delNode
+     * @return
+     */
     private Node getPrecursor(Node delNode){
         Node curr = delNode.left;
         Node proCursor = curr;
@@ -158,23 +258,10 @@ public class MyTree<E> {
         return proCursor;
     }
 
-
-    private Node midIte(Node pre,Node node,Node target){
-        if(node != null){
-            if(node == target){
-                return pre;
-            }
-            pre = midIte(pre,node.left,target);
-            if(pre == null){
-                pre = node;
-            }
-            pre =  midIte(pre,node.right,target);
-        }else{
-            return null;
-        }
-        return null;
-    }
-
+    /**
+     * 节点类
+     * @param <E>
+     */
     static class Node<E> implements Comparable<E>{
         Node left;
         Node right;
@@ -195,6 +282,12 @@ public class MyTree<E> {
                 throw new ClassCastException();
             }
         }
+    }
+
+    public static void main(String[] args){
+        Node root = generateTree("753##6##98###");
+        printPre(root);
+        printNormal(root);
     }
 }
 

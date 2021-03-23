@@ -1,6 +1,5 @@
 package cn.hzy.demo.sort;
 
-import cn.hzy.demo.sort.common.GenerateData;
 import cn.hzy.demo.sort.common.Sort;
 
 public class Quick extends Sort<Integer> {
@@ -29,9 +28,9 @@ public class Quick extends Sort<Integer> {
     private int pivot(int start,int end){
         int mid = (end + start) >> 1;
         //三数取中
-        if(compareTo(start,mid)==1){
-            if(compareTo(start,end) == 1){
-                if(compareTo(mid,end) == 1){
+        if(compareTo(array[start],array[mid])==1){
+            if(compareTo(array[start],array[end]) == 1){
+                if(compareTo(array[mid],array[end]) == 1){
                     return mid;
                 }else{
                     return end;
@@ -40,7 +39,7 @@ public class Quick extends Sort<Integer> {
                 return start;
             }
         }else{
-            if(compareTo(start,end) == 1){
+            if(compareTo(array[start],array[end]) == 1){
                 return start;
             }else{
                 if(compareTo(mid,end) == 1){
@@ -94,6 +93,11 @@ public class Quick extends Sort<Integer> {
 
     @Override
     public void desc() {
+
+    }
+
+    @Override
+    public void upgrade() {
 
     }
 }

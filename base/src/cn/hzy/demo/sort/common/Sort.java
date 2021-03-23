@@ -15,6 +15,9 @@ public abstract class Sort<T extends Comparable>{
 
     public abstract void desc();
 
+    public abstract void upgrade();
+
+
     public int compareTo(int a,int b){
         marker.compareCount++;
         return array[a].compareTo(array[b]);
@@ -65,6 +68,13 @@ public abstract class Sort<T extends Comparable>{
         marker.print();
     }
 
+    public void sortUpgrade(){
+        long start = System.currentTimeMillis();
+        upgrade();
+        long end = System.currentTimeMillis();
+        marker.calc(start,end);
+        marker.print();
+    }
 
     private static class Marker{
 
