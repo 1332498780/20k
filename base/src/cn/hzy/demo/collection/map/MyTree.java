@@ -146,10 +146,80 @@ public class MyTree<E> {
         printPre(node.right);
     }
 
-    public static <E> void main(String[] args){
-        MyTree<Integer> myTree = new MyTree();
-        myTree.insertTree();
+    /**
+     * 非递归前序遍历打印
+     * @param node
+     */
+    private static void printNormal(Node node){
+
+        class Snode<T>{
+            Snode pre;
+            Snode next;
+            T data;
+            public Snode(T data){
+                this.data = data;
+            }
+        }
+        class Stack<T>{
+            Snode<T> header;
+            Snode<T> top; //栈顶
+            boolean isEmpty(){
+                return header == null;
+            }
+
+            void push(T data){
+                Snode<T> sNode = new Snode<>(data);
+                if(isEmpty()){
+                    header = sNode;
+                    top = sNode;
+                }else{
+                    top.next = sNode;
+                    sNode.pre = top;
+                    top = top.next;
+                }
+            }
+            T pop(){
+                T data;
+                if(isEmpty()){
+                    return null;
+                }else {
+                    if(top == header){
+                       data = header.data;
+                       header = null;
+                       top = null;
+                    }else{
+                        data = top.data;
+                        Snode delNode = top;
+                        top = delNode.pre;
+                        top.next = null;
+                        //delNode.next.pre = top;
+                        delNode.pre = null;
+                        delNode.next = null;
+                    }
+                    return data;
+                }
+            }
+        }
+        //根左右
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()){
+            Node tmp = stack.pop();
+            System.out.print(tmp.data+",");
+            if(tmp.right!=null){
+                stack.push(tmp.right);
+            }
+            if(tmp.left!=null){
+                stack.push(tmp.left);
+            }
+        }
     }
+
+//    public static <E> void main(String[] args){
+//        MyTree<Integer> myTree = new MyTree();
+//        myTree.insertTree();
+//    }
 
     /**
      * 交互输入非0数字构造二叉树
@@ -212,6 +282,12 @@ public class MyTree<E> {
                 throw new ClassCastException();
             }
         }
+    }
+
+    public static void main(String[] args){
+        Node root = generateTree("753##6##98###");
+        printPre(root);
+        printNormal(root);
     }
 }
 
