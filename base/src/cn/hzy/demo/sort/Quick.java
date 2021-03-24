@@ -1,5 +1,6 @@
 package cn.hzy.demo.sort;
 
+import cn.hzy.demo.sort.common.GenerateData;
 import cn.hzy.demo.sort.common.Sort;
 
 public class Quick extends Sort<Integer> {
