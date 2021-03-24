@@ -3,6 +3,10 @@ package cn.hzy.demo.sort;
 import cn.hzy.demo.sort.common.GenerateData;
 import cn.hzy.demo.sort.common.Sort;
 
+/**
+ * 优化过一次，思路就是记录下，最后一次发生交换元素的下标，这样下次只需从开头到这个元素之间进行冒泡即可，减少了比较次数。
+ * 这种优化对数组有部分数据是有序的情况下，会提升效率。
+ */
 public class Bubble extends Sort<Integer> {
 
     public Bubble(Integer[] array) {
@@ -10,7 +14,7 @@ public class Bubble extends Sort<Integer> {
     }
 
     public static void main(String[] args){
-        Integer[] array = GenerateData.da(GenerateData.w1);
+        Integer[] array = GenerateData.da(GenerateData.w10);
         Bubble bubble = new Bubble(array);
         bubble.printPre(20);
         bubble.sortUpgrade();

@@ -7,9 +7,6 @@ import java.util.SortedSet;
 
 public class MySortedSet<E> implements SortedSet<E> {
 
-
-
-
     @Override
     public Comparator<? super E> comparator() {
         return null;

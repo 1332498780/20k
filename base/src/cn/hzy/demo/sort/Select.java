@@ -7,6 +7,10 @@ import java.security.Security;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * 进行过一次优化，但是效果不理想，后来想了下，其实这种改进算法不会提升效率。这种改进的思路是，一次选择2个值，一个最大，
+ * 一个最小。其实这样并不会减少比较和交换的次数。
+ */
 public class Select extends Sort<Integer> {
 
     public Select(Integer[] array) {
@@ -14,10 +18,10 @@ public class Select extends Sort<Integer> {
     }
 
     public static void main(String[] args){
-        Integer[] array = GenerateData.asc(GenerateData.w1);
+        Integer[] array = GenerateData.da(GenerateData.w10);
         Select select = new Select(array);
         select.printPre(20);
-        select.sortUpgrade();
+        select.sortDesc();
         select.printPre(20);
     }
 
