@@ -18,4 +18,9 @@ public class Heap extends Sort<Integer> {
     public void desc() {
 
     }
+
+    @Override
+    public void upgrade() {
+
+    }
 }
