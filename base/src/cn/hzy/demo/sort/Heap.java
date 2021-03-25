@@ -3,20 +3,18 @@ package cn.hzy.demo.sort;
 import cn.hzy.demo.sort.common.GenerateData;
 import cn.hzy.demo.sort.common.Sort;
 
-import java.io.FileInputStream;
-
 public class Heap extends Sort<Integer> {
 
     public Heap(Integer[] array){
         super("堆排序",array);
     }
 
-    private void goDownDesc(int index){
+    private void goDownDesc(int index,int len){
         int lc = (index << 1) + 1;
         int rc = lc + 1;
         boolean isSwap = false;
-        if(lc<array.length) {
-            if (rc < array.length) {
+        if(lc<len) {
+            if (rc < len) {
                 if (compareTo(lc, index) == 1) {
                     if (compareTo(rc, lc) == 1) {
                         swap(rc, index);
@@ -38,16 +36,16 @@ public class Heap extends Sort<Integer> {
             }
         }
         if(isSwap){
-            goUpDesc(index);
+            goUpDesc(index,len);
         }
     }
 
-    private void goDownAsc(int index){
+    private void goDownAsc(int index,int len){
         int lc = (index << 1) + 1;
         int rc = lc + 1;
         boolean isSwap = false;
-        if(lc<array.length) {
-            if (rc < array.length) {
+        if(lc<len) {
+            if (rc < len) {
                 if (compareTo(lc, index) == -1) {
                     if (compareTo(rc, lc) == -1) {
                         swap(rc, index);
@@ -69,11 +67,11 @@ public class Heap extends Sort<Integer> {
             }
         }
         if(isSwap){
-            goUpAsc(index);
+            goUpAsc(index,len);
         }
     }
 
-    private void goUpDesc(int index){
+    private void goUpDesc(int index,int len){
         int parentIndex;
         if(index % 2 == 0){
             parentIndex = (index >> 1) -1;
@@ -83,13 +81,13 @@ public class Heap extends Sort<Integer> {
         if(index != 0 && parentIndex >= 0){
             if(compareTo(index,parentIndex) == 1){
                 swap(index,parentIndex);
-                goUpDesc(parentIndex);
-                goDownDesc(index);
+                goUpDesc(parentIndex,len);
+                goDownDesc(index,len);
             }
         }
     }
 
-    private void goUpAsc(int index){
+    private void goUpAsc(int index,int len){
         int parentIndex;
         if(index % 2 == 0){
             parentIndex = (index >> 1) -1;
@@ -99,8 +97,8 @@ public class Heap extends Sort<Integer> {
         if(index != 0 && parentIndex >= 0){
             if(compareTo(index,parentIndex) == -1){
                 swap(index,parentIndex);
-                goUpAsc(parentIndex);
-                goDownAsc(index);
+                goUpAsc(parentIndex,len);
+                goDownAsc(index,len);
             }
         }
     }
@@ -109,32 +107,39 @@ public class Heap extends Sort<Integer> {
      * 调整最大堆
      * @param index
      */
-    private void heapMaxIf(int index){
-        goDownDesc(index);
+    private void heapMaxIf(int index,int len){
+        goDownDesc(index,len);
         int lc = (index << 1) + 1;
         int rc = lc + 1;
-        if(lc<array.length){
-            heapMaxIf(lc);
-            if(rc<array.length){
-                heapMaxIf(rc);
+        if(lc<len){
+            heapMaxIf(lc,len);
+            if(rc<len){
+                heapMaxIf(rc,len);
             }
         }
     }
 
-    private void heapMinIf(int index){
-        goDownAsc(index);
+    private void heapMinIf(int index,int top){
+        goDownAsc(index,top);
         int lc = (index << 1) + 1;
         int rc = lc + 1;
         if(lc<array.length){
-            heapMinIf(lc);
+            heapMinIf(lc,top);
             if(rc<array.length){
-                heapMinIf(rc);
+                heapMinIf(rc,top);
             }
         }
     }
+
+    private void heapSelect(int index){
+        for(int i=0;i<array.length-1;i++){
+            
+        }
+    }
+
 
     public static void main(String[] args) {
-        Integer[] array = GenerateData.asc(GenerateData.w10);
+        Integer[] array = GenerateData.desc(GenerateData.w10);
         Heap heap = new Heap(array);
         heap.printPre(20);
         heap.sortAsc();
@@ -158,18 +163,17 @@ public class Heap extends Sort<Integer> {
         return true;
     }
 
-    enum HeapType{
-        max,min;
-    }
-
     @Override
     public void asc() {
-        heapMinIf(0);
+        for(int i=0;i<array.length-1;i++){
+            heapMaxIf(0,array.length-i);
+            swap(0,array.length-i-1);
+        }
     }
 
     @Override
     public void desc() {
-        heapMaxIf(0);
+//        heapMaxIf(0);
     }
 
     @Override
