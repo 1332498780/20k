@@ -1,5 +1,7 @@
 package cn.hzy.demo.sort.common;
 
+import java.util.Arrays;
+
 public abstract class Sort<T extends Comparable>{
 
     private Marker marker;
@@ -28,10 +30,15 @@ public abstract class Sort<T extends Comparable>{
     }
 
     public void swap(int a,int b){
+//        System.out.println("swap :"+array[a]+","+array[b]);
+//        System.out.print("交换前：");
+//        printPre(array.length);
         marker.swapCount++;
         T temp = array[a];
         array[a] = array[b];
         array[b] = temp;
+//        System.out.print("交换后：");
+//        printPre(array.length);
     }
 
     public void printPre(int count){
