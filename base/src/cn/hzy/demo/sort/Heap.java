@@ -131,19 +131,33 @@ public class Heap extends Sort<Integer> {
         }
     }
 
+    private void goDownAdjust(int index,int len){
+        for(int k=2*index+1;k<len;k=2*index+1){
+            if(k+1 < len && compareTo(k+1,index) == 1){
+                k++;
+            }
+            if(compareValTo(k,index) == 1){
+                swap(k,index);
+                index = k;
+            }else{
+                break;
+            }
+        }
+    }
+
     private void heapSelect(int index){
-        for(int i=0;i<array.length-1;i++){
-            
+        for(int i=array.length/2-1;i>=0;i--){
+            goDownAdjust(i,array.length);
         }
     }
 
 
     public static void main(String[] args) {
-        Integer[] array = GenerateData.desc(GenerateData.w10);
+        Integer[] array = GenerateData.desc(10);
         Heap heap = new Heap(array);
-        heap.printPre(20);
+        heap.printPre(10);
         heap.sortAsc();
-        heap.printPre(20);
+        heap.printPre(10);
     }
     private boolean validate(){
         for(int i=0;i<array.length;i++){
