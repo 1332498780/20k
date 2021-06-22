@@ -1,6 +1,5 @@
 package cn.hzy.demo.collection.map;
 
-import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Set;
 
 public class MapMain {
 
-    @Test
     public void mapTest(){
         Map<String,String> map = new HashMap<>();
         map.put("123","123");
@@ -24,7 +22,6 @@ public class MapMain {
     static int MAXIMUM_CAPACITY = 1 << 16;
 
 
-    @Test
     public void numberTest(){
 //        int num = tableSizeFor(256);
 
