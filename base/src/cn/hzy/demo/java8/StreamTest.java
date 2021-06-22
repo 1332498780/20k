@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -87,6 +89,87 @@ public class StreamTest {
         list.stream().distinct().forEach(System.out::println);
     }
 
+    /***
+     * 映射
+     */
+    @Test
+    public void test7(){
+        List<String> strs = Arrays.asList("aa","bb","cc","dd");
+        strs.stream().map(String::toUpperCase).forEach(System.out::println);
+    }
 
+    /***
+     * 平铺(流嵌套流)
+     * 不好懂
+     */
+    @Test
+    public void test8(){
+        List<String> list = new ArrayList();
+        list.add("11");
+        list.add("22");
+        list.add("33");
+        list.add("44");
+//        List child = new ArrayList();
+//        child.add(10);
+//        child.add(11);
+//        child.add(12);
+//        child.add(13);
+//        list.add(child);
 
+        list.stream().flatMap(StreamTest::characterStream).forEach(System.out::println);
+    }
+    private static Stream<Character> characterStream(String strs){
+        List<Character> res = new ArrayList<>();
+        for(Character c:strs.toCharArray()){
+            res.add(c);
+        }
+        return res.stream();
+    }
+
+    /***
+     * 排序
+     */
+    @Test
+    public void test9(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+//        list.stream().sorted().forEach(System.out::println);
+        list.stream().sorted((e1,e2)-> -Integer.compare(e1,e2)).forEach(System.out::println);
+    }
+
+    /***
+     * 一些终止操作
+     */
+    @Test
+    public void test10(){
+        boolean b = list.stream().allMatch(s -> s.getName().contains("京"));
+        boolean b1 = list.stream().anyMatch(s -> s.getName().contains("张"));
+        boolean b2 = list.stream().noneMatch(s -> s.getName().contains("汪"));
+        Optional<Person> b3 = list.stream().findAny();
+        Optional<Person> b4 = list.stream().findFirst();
+
+        Optional<Person> min = list.stream().min((p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
+        Optional<Person> max = list.stream().max((p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
+
+        list.stream().forEach(System.out::println);
+    }
+
+    /***
+     * 归约操作
+     */
+    @Test
+    public void test11(){
+        System.out.println(list.stream().map(Person::getId).reduce(Integer::sum));
+    }
+
+    /***
+     * 收集操作
+     */
+    @Test
+    public void test12(){
+        System.out.println(list.stream().filter(person -> person.getId()>3).collect(Collectors.toList()));
+    }
 }
