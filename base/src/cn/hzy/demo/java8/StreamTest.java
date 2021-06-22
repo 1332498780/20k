@@ -15,17 +15,19 @@ public class StreamTest {
     static {
         list = new ArrayList<>();
         Person p1 = new Person(1,"普京");
-        Person p2 = new Person(1,"吴京");
+        Person p2 = new Person(2,"吴京");
         Person p3 = new Person(1,"郭京飞");
-        Person p4 = new Person(1,"周杰伦");
-        Person p5 = new Person(1,"张芸京");
-        Person p6 = new Person(1,"张一山");
+        Person p4 = new Person(4,"周杰伦");
+        Person p5 = new Person(5,"张芸京");
+        Person p6 = new Person(6,"张一山");
+        Person p7 = new Person(1,"郭京飞");
         list.add(p1);
         list.add(p2);
         list.add(p3);
         list.add(p4);
         list.add(p5);
         list.add(p6);
+        list.add(p7);
     }
 
     /***
@@ -69,9 +71,22 @@ public class StreamTest {
         Stream.iterate(0,t->t+2).limit(10).forEach(System.out::println);
     }
 
+    /***
+     * 过滤
+     */
     @Test
     public void test5(){
-
+        list.stream().filter(e -> e.getName().contains("京")).forEach(System.out::println);
     }
+
+    /***
+     * 去重
+     */
+    @Test
+    public void test6(){
+        list.stream().distinct().forEach(System.out::println);
+    }
+
+
 
 }
