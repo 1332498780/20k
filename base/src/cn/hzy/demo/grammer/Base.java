@@ -4,10 +4,10 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class Base {
 
-    protected int i = 20;
+    protected int i = 2;
 
     public Base(){
-        System.out.println(this.i);
+        System.out.println(i);
         display();
     }
 
