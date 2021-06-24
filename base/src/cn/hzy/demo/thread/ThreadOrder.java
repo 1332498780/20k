@@ -1,15 +1,17 @@
 package cn.hzy.demo.thread;
 
+/***
+ * 实现A，B，C 3个线程按照顺序依次打印
+ */
 public class ThreadOrder {
 
     public static void main(String[] args) {
-        Integer val = Integer.valueOf(100);
 
-        MyThreadOrder A = new MyThreadOrder(val);
+        MyThreadOrder A = new MyThreadOrder();
         A.setName("A");
-        MyThreadOrder B = new MyThreadOrder(val);
+        MyThreadOrder B = new MyThreadOrder();
         B.setName("B");
-        MyThreadOrder C = new MyThreadOrder(val);
+        MyThreadOrder C = new MyThreadOrder();
         C.setName("C");
 
         A.setMyNext(B);
@@ -19,19 +21,16 @@ public class ThreadOrder {
         MyThreadOrder.next = A;
 
         A.start();
-//        B.start();
-//        C.start();
+        B.start();
+        C.start();
     }
 }
 class MyThreadOrder extends Thread{
 
     public static MyThreadOrder next;
-
-    private Integer val;
+    public static Integer val = 10;
     private MyThreadOrder myNext;
-    public MyThreadOrder(Integer val){
-        this.val = val;
-    }
+    private static Object object = new Object();
 
     public void setMyNext(MyThreadOrder myNext){
         this.myNext = myNext;
@@ -40,19 +39,23 @@ class MyThreadOrder extends Thread{
     @Override
     public void run() {
         while (true){
-            synchronized (val){
-                if(this != next){
-                    notifyAll();
-                    continue;
+            synchronized (object){
+                System.out.println(Thread.currentThread().getName());
+                while(this != next){
+                    try {
+                        object.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-//                next = myNext;
+                next = myNext;
+                object.notifyAll();
                 if(val<=0){
-                    notifyAll();
                     break;
                 }
                 System.out.println(Thread.currentThread().getName()+" "+val--);
                 try {
-                    wait();
+                    object.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
