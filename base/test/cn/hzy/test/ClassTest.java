@@ -5,9 +5,10 @@ import java.net.URL;
 import java.util.Enumeration;
 
 public class ClassTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        classLoader();
+//        Thread.sleep(1000000);
+//        classLoader();
     }
 
     public static void bootstrapClassLoader(){

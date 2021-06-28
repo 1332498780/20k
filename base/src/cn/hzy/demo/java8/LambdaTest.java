@@ -2,10 +2,10 @@ package cn.hzy.demo.java8;
 
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.*;
+import java.util.stream.IntStream;
 
 /***
  * lambda使用条件：函数式接口;
@@ -146,6 +146,12 @@ public class LambdaTest {
     public void test11(){
         Function<Integer, String[]> biFunction = String[] :: new;
         System.out.println(Arrays.toString(biFunction.apply(10)));
+    }
+
+    @Test
+    public void test12(){
+        IntStream.range(0,5).boxed().forEach(System.out::println);
+
     }
 
     private void print(){
