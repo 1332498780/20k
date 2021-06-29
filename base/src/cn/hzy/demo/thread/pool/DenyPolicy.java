@@ -9,7 +9,7 @@ public interface DenyPolicy {
 
         @Override
         public void reject(Runnable runnable, ThreadPool threadPool) {
-
+            System.out.println("reject");
         }
     }
 

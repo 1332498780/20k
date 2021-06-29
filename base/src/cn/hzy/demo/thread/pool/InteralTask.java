@@ -14,9 +14,13 @@ public class InteralTask implements Runnable{
         while(isRunning && !Thread.currentThread().isInterrupted()){
             Runnable runnable = null;
             try {
-                runnable = taskQueue.get();
+                synchronized (taskQueue){
+                    runnable = taskQueue.get();
+                }
             } catch (InterruptedException e) {
+                System.out.println("被中断，break");
                 e.printStackTrace();
+                break;
             }
             runnable.run();
         }
