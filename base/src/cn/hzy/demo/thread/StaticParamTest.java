@@ -30,7 +30,6 @@ public class StaticParamTest {
         StaticParamTest s = getInstance();
         System.out.println(s.x);
         System.out.println(s.y);
-        ClassLoader
     }
 
 
