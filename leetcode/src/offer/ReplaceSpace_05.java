@@ -7,8 +7,11 @@ package offer;
  */
 public class ReplaceSpace_05 {
     public static void main(String[] args) {
-        String s = new ReplaceSpace_05().reltion();
-        System.out.println(s);
+        /*String s = new ReplaceSpace_05().reltion();
+        System.out.println(s);*/
+        String s = "We are happy.";
+        String replace = s.replace(" ", "%20");
+        System.out.println(replace);
     }
 
     // 执行用时：0 ms, 在所有 Java 提交中击败了 100.00% 的用户

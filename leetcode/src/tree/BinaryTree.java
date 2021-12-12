@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.LinkedList;
+
 public class BinaryTree {
     public static void main(String[] args) {
         String[] array = new String[]{"A","B","C","D","E","F"};
@@ -11,6 +13,7 @@ public class BinaryTree {
         System.out.println();
         tree.afterPrint(node);
         System.out.println();
+//        LinkedList
     }
     // 构建二叉树
     public Node build(String[] array, int index) {
@@ -49,6 +52,8 @@ public class BinaryTree {
         afterPrint(root.right);
         System.out.print(root.data);
     }
+    // 层序遍历
+
     private class Node {
         private String data;
         private Node left;
