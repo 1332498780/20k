@@ -1,5 +1,8 @@
 package offer;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+
 /**
  * 旋转数组的最小数字
  * 思路
@@ -7,10 +10,14 @@ package offer;
  */
 public class FindMinNumInRotatedArray_11 {
     public static void main(String[] args) {
-        int min = new FindMinNumInRotatedArray_11().minArray(
-                new int[]{2,0,0,0,1,2}
-        );
-        System.out.println(min);
+//        int min = new FindMinNumInRotatedArray_11().minArray(
+//                new int[]{2,0,0,0,1,2}
+//        );
+//        System.out.println(min);
+//        int index = new FindMinNumInRotatedArray_11()
+//                .binarySearchIndex(new int[]{1, 2, 3, 4, 5}, 5);
+//        System.out.println(index);
+        System.out.println(YearMonth.from(LocalDate.now()));
     }
 
     // 执行用时：0 ms, 在所有 Java 提交中击败了 100.00% 的用户
@@ -70,4 +77,24 @@ public class FindMinNumInRotatedArray_11 {
         }
         return numbers[0];
     }
+
+    /**
+     * 二分查找，所给数字在数组的下标，未找到则返回-1
+     */
+    public int binarySearchIndex(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (target == arr[mid]) {
+                return mid;
+            } else if (target > arr[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
 }
