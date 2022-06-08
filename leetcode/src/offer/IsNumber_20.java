@@ -1,5 +1,6 @@
 package offer;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class IsNumber_20 {
@@ -11,6 +12,8 @@ public class IsNumber_20 {
 //        String[] noArr = {"12e", "1a3.14", "1.2.3", "+-5", "12e+5.4"};
 //        Arrays.stream(noArr).forEach(str -> System.out.println(isNumber_20.isNumber(str)));
 //        System.out.println(isNumber_20.isNumber("+.8"));
+        int i = new BigDecimal(7).compareTo(new BigDecimal("7.00"));
+        System.out.println(i);
     }
 
     public boolean isNumber(String s) {
