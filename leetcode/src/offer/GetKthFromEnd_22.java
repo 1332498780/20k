@@ -1,5 +1,7 @@
 package offer;
 
+import offer.base.ListNode;
+
 public class GetKthFromEnd_22 {
 
     public static void main(String[] args) {
@@ -67,13 +69,5 @@ public class GetKthFromEnd_22 {
             node1 = node2;
         }
         return node1;
-    }
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 }

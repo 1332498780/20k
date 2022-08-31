@@ -1,6 +1,8 @@
 package offer;
 
 
+import offer.base.ListNode;
+
 /**
  * 如果一个链表包含环，找到环的入口节点
  */
@@ -111,18 +113,5 @@ public class FindStartNodeFromCycle_23 {
             p2 = p2.next;
         }
         return p1;
-    }
-
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-        ListNode(int x, ListNode next) {
-            val = x;
-            this.next = next;
-        }
     }
 }
