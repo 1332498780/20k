@@ -30,7 +30,19 @@ public class MergeLinkedList_25 {
     }
 
     public ListNode mergeTwoLists(ListNode p1, ListNode p2) {
-        ListNode head = this.compare(p1, p2);
+        int compare = this.compare(p1, p2);
+        ListNode head;
+        if (compare == 1) {
+            head = p1;
+            if (p1 != null) {
+                p1 = p1.next;
+            }
+        } else {
+            head = p2;
+            if (p2 != null) {
+                p2 = p2.next;
+            }
+        }
         if (head == null) {
             return null;
         }
@@ -38,38 +50,38 @@ public class MergeLinkedList_25 {
         while (p != null) {
             if (p1 == null) {
                 p.next = p2;
-                p = p.next;
+                p = p2;
+                if (p2 != null) {
+                    p2 = p2.next;
+                }
                 continue;
             }
             if (p2 == null) {
                 p.next = p1;
-                p = p.next;
+                p = p1;
+                p1 = p1.next;
                 continue;
             }
             if (p1.val <= p2.val) {
                 p.next = p1;
-                p = p.next;
+                p = p1;
                 p1 = p1.next;
             } else {
                 p.next = p2;
-                p = p.next;
+                p = p2;
                 p2 = p2.next;
             }
         }
         return head;
     }
 
-    private ListNode compare(ListNode p1, ListNode p2) {
+    private int compare(ListNode p1, ListNode p2) {
         if (p1 == null) {
-            return p2;
+            return 2;
         }
         if (p2 == null) {
-            return p1;
+            return 1;
         }
-        if (p1.val <= p2.val) {
-            return p1;
-        } else {
-            return p2;
-        }
+        return p1.val <= p2.val ? 1 : 2;
     }
 }
