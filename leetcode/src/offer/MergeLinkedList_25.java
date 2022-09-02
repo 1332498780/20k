@@ -13,10 +13,10 @@ public class MergeLinkedList_25 {
     }
 
     public void testMerge() {
-        ListNode node14 = new ListNode(7, null);
-        ListNode node13 = new ListNode(5, node14);
-        ListNode node12 = new ListNode(3, node13);
-        ListNode node11 = new ListNode(1, node12);
+//        ListNode node14 = new ListNode(7, null);
+//        ListNode node13 = new ListNode(5, node14);
+//        ListNode node12 = new ListNode(3, node13);
+        ListNode node11 = new ListNode(1, null);
         System.out.println(node11);
 
         ListNode node24 = new ListNode(8, null);
@@ -29,59 +29,21 @@ public class MergeLinkedList_25 {
         System.out.println(head);
     }
 
+    // 循环解决
     public ListNode mergeTwoLists(ListNode p1, ListNode p2) {
-        int compare = this.compare(p1, p2);
-        ListNode head;
-        if (compare == 1) {
-            head = p1;
-            if (p1 != null) {
-                p1 = p1.next;
-            }
-        } else {
-            head = p2;
-            if (p2 != null) {
-                p2 = p2.next;
-            }
-        }
-        if (head == null) {
-            return null;
-        }
-        ListNode p = head;
-        while (p != null) {
-            if (p1 == null) {
-                p.next = p2;
-                p = p2;
-                if (p2 != null) {
-                    p2 = p2.next;
-                }
-                continue;
-            }
-            if (p2 == null) {
-                p.next = p1;
-                p = p1;
-                p1 = p1.next;
-                continue;
-            }
+        ListNode cur = new ListNode(0);
+        ListNode dum = cur;
+        while (p1 != null && p2 != null) {
             if (p1.val <= p2.val) {
-                p.next = p1;
-                p = p1;
+                cur.next = p1;
                 p1 = p1.next;
             } else {
-                p.next = p2;
-                p = p2;
+                cur.next = p2;
                 p2 = p2.next;
             }
+            cur = cur.next;
         }
-        return head;
-    }
-
-    private int compare(ListNode p1, ListNode p2) {
-        if (p1 == null) {
-            return 2;
-        }
-        if (p2 == null) {
-            return 1;
-        }
-        return p1.val <= p2.val ? 1 : 2;
+        cur.next = p1 == null ? p2 : p1;
+        return dum.next;
     }
 }
