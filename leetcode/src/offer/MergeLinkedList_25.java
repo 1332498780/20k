@@ -25,7 +25,7 @@ public class MergeLinkedList_25 {
         ListNode node21 = new ListNode(2, node22);
         System.out.println(node21);
 
-        ListNode head = this.mergeTwoLists(node11, node21);
+        ListNode head = this.recursionTwoList(node11, node21);
         System.out.println(head);
     }
 
@@ -45,5 +45,21 @@ public class MergeLinkedList_25 {
         }
         cur.next = p1 == null ? p2 : p1;
         return dum.next;
+    }
+
+    public ListNode recursionTwoList(ListNode p1, ListNode p2) {
+        if (p1 == null) {
+            return p2;
+        }
+        if (p2 == null) {
+            return p1;
+        }
+        if (p1.val <= p2.val) {
+            p1.next = recursionTwoList(p1.next, p2);
+            return p1;
+        } else {
+            p2.next = recursionTwoList(p2.next, p1);
+            return p2;
+        }
     }
 }
