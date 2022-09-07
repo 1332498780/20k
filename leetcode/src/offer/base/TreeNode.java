@@ -9,15 +9,21 @@ public class TreeNode {
         this.val = val;
     }
 
+    public TreeNode(String val, TreeNode leftNode, TreeNode rightNode) {
+        this.val = val;
+        this.leftNode = leftNode;
+        this.rightNode = rightNode;
+    }
+
     public void testBuildTree() throws Exception {
         String[] preNodes = "F,B,A,D,C,E,G,I,H".split(",");
         String[] midNodes = "A,B,C,D,E,F,G,H,I".split(",");
 //        String[] postNodes = "A,C,E,D,B,H,I,G,F".split(",");
-        TreeNode rootNode = buildTreeWithPreOrder(preNodes, midNodes);
+        TreeNode rootNode = buildTreeWithPreMidOrder(preNodes, midNodes);
         postRetrieval(rootNode);
     }
 
-    public static TreeNode buildTreeWithPreOrder(String[] preOrderNodes, String[] midOrderNodes) throws Exception {
+    public static TreeNode buildTreeWithPreMidOrder(String[] preOrderNodes, String[] midOrderNodes) throws Exception {
         if (preOrderNodes == null || midOrderNodes == null || preOrderNodes.length < 1) {
             return null;
         }
@@ -49,8 +55,8 @@ public class TreeNode {
         String[] rightNodesInPre = Arrays.copyOfRange(preOrderNodes, leftEndIndexInPre+1, preOrderNodes.length);
 
         // 赋值
-        rootNode.leftNode = buildTreeWithPreOrder(leftNodesInPre, leftNodesInMid);
-        rootNode.rightNode = buildTreeWithPreOrder(rightNodesInPre, rightNodesInMid);
+        rootNode.leftNode = buildTreeWithPreMidOrder(leftNodesInPre, leftNodesInMid);
+        rootNode.rightNode = buildTreeWithPreMidOrder(rightNodesInPre, rightNodesInMid);
 
         return rootNode;
     }
@@ -80,8 +86,12 @@ public class TreeNode {
             return;
         }
         System.out.println(node.val);
-        preRetrieval(node.leftNode);
-        preRetrieval(node.rightNode);
+        if (node.leftNode != null) {
+            preRetrieval(node.rightNode);
+        }
+        if (node.rightNode != null) {
+            preRetrieval(node.rightNode);
+        }
     }
 
     /**
@@ -92,9 +102,13 @@ public class TreeNode {
         if (node == null) {
             return;
         }
-        midRetrieval(node.leftNode);
+        if (node.leftNode != null) {
+            midRetrieval(node.leftNode);
+        }
         System.out.println(node.val);
-        midRetrieval(node.rightNode);
+        if (node.rightNode != null) {
+            midRetrieval(node.rightNode);
+        }
     }
 
     /**
@@ -105,8 +119,12 @@ public class TreeNode {
         if (node == null) {
             return;
         }
-        postRetrieval(node.leftNode);
-        postRetrieval(node.rightNode);
+        if (node.leftNode != null) {
+            postRetrieval(node.leftNode);
+        }
+        if (node.rightNode != null) {
+            postRetrieval(node.rightNode);
+        }
         System.out.println(node.val);
     }
 
