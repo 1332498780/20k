@@ -40,10 +40,10 @@ public class TreeIsSubStructure_26 {
         if (isSubStructure(treeA, treeB)) {
             return true;
         }
-        if (treeA.leftNode != null && midRetrieval(treeA.leftNode, treeB)) {
+        if (treeA.left != null && midRetrieval(treeA.left, treeB)) {
             return true;
         }
-        if (treeA.rightNode != null && midRetrieval(treeA.rightNode, treeB)) {
+        if (treeA.right != null && midRetrieval(treeA.right, treeB)) {
             return true;
         }
         return false;
@@ -60,6 +60,6 @@ public class TreeIsSubStructure_26 {
         if (!a.val.equals(b.val)) {
             return false;
         }
-        return isSubStructure(a.leftNode,b.leftNode) && isSubStructure(a.rightNode, b.rightNode);
+        return isSubStructure(a.left,b.left) && isSubStructure(a.right, b.right);
     }
 }

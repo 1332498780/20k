@@ -3,16 +3,16 @@ package offer.base;
 import java.util.Arrays;
 public class TreeNode {
     public String val;
-    public TreeNode leftNode;
-    public TreeNode rightNode;
+    public TreeNode left;
+    public TreeNode right;
     public TreeNode(String val) {
         this.val = val;
     }
 
     public TreeNode(String val, TreeNode leftNode, TreeNode rightNode) {
         this.val = val;
-        this.leftNode = leftNode;
-        this.rightNode = rightNode;
+        this.left = leftNode;
+        this.right = rightNode;
     }
 
     public void testBuildTree() throws Exception {
@@ -55,8 +55,8 @@ public class TreeNode {
         String[] rightNodesInPre = Arrays.copyOfRange(preOrderNodes, leftEndIndexInPre+1, preOrderNodes.length);
 
         // 赋值
-        rootNode.leftNode = buildTreeWithPreMidOrder(leftNodesInPre, leftNodesInMid);
-        rootNode.rightNode = buildTreeWithPreMidOrder(rightNodesInPre, rightNodesInMid);
+        rootNode.left = buildTreeWithPreMidOrder(leftNodesInPre, leftNodesInMid);
+        rootNode.right = buildTreeWithPreMidOrder(rightNodesInPre, rightNodesInMid);
 
         return rootNode;
     }
@@ -86,11 +86,11 @@ public class TreeNode {
             return;
         }
         System.out.println(node.val);
-        if (node.leftNode != null) {
-            preRetrieval(node.rightNode);
+        if (node.left != null) {
+            preRetrieval(node.left);
         }
-        if (node.rightNode != null) {
-            preRetrieval(node.rightNode);
+        if (node.right != null) {
+            preRetrieval(node.right);
         }
     }
 
@@ -102,12 +102,12 @@ public class TreeNode {
         if (node == null) {
             return;
         }
-        if (node.leftNode != null) {
-            midRetrieval(node.leftNode);
+        if (node.left != null) {
+            midRetrieval(node.left);
         }
         System.out.println(node.val);
-        if (node.rightNode != null) {
-            midRetrieval(node.rightNode);
+        if (node.right != null) {
+            midRetrieval(node.right);
         }
     }
 
@@ -119,11 +119,11 @@ public class TreeNode {
         if (node == null) {
             return;
         }
-        if (node.leftNode != null) {
-            postRetrieval(node.leftNode);
+        if (node.left != null) {
+            postRetrieval(node.left);
         }
-        if (node.rightNode != null) {
-            postRetrieval(node.rightNode);
+        if (node.right != null) {
+            postRetrieval(node.right);
         }
         System.out.println(node.val);
     }
