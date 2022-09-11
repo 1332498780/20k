@@ -128,4 +128,14 @@ public class TreeNode {
         System.out.println(node.val);
     }
 
+    public static boolean twoTreeEquals(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+        if (left != null && right != null) {
+            return (left.val == right.val) && twoTreeEquals(left.left, right.left) && twoTreeEquals(left.right, right.right);
+        }
+        return false;
+    }
+
 }
